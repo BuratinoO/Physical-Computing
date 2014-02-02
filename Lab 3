@@ -1,6 +1,7 @@
-//The LED turns on when the light value is low and LED turns iff when the light value is height.
-//The light value is recorded for 5 seconds between the range of 10 & 500 after the program starts.
+//The light value is recorded for the first 5 seconds between the range of 0 & 250.
+//The LED turns on when the light value is low and LED turns off when the light value is height.
 //Alexandr Gerassimov
+
 int sensor1val = 0;
 const int ledPin = 13;//LED on pin 13 
 int sensorMin = 1023;        
@@ -18,11 +19,9 @@ void loop() {
   Serial.println(analogRead(A0));//first serial port
   sensor1val = analogRead(A0);
   sensor1val = map(sensor1val, 0, 1023, 0, 250);//mapped to 10 & 250
-  sensor1val = constrain(sensor1val, 10, 500);
  while (millis() < 5000) {//records light values for the first five seconds
    sensor1val = analogRead(A0);
    sensor1val = map(sensor1val, 0, 1023, 0, 250);//mapped to 10 & 250
-   sensor1val = constrain(sensor1val, 10, 500);
    if (sensor1val > sensorMax) {//maximum value
      sensorMax = sensor1val;
    }
