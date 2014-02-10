@@ -1,0 +1,81 @@
+//	Midterm Project 
+//      Physical Computing
+//      Alexandr Gerassimov
+int vert = 0; //vertical up=0 down=1023
+int hor = 1; // horizontal - left=0 right=1023
+const int ledPin1 = 13;
+const int ledPin2 = 12;
+const int ledPin3 = 11;
+int r = 0;//random number
+int score = 0;
+
+ void setup() {
+  Serial.begin(9600);
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
+ }
+void loop() {
+ 
+  // read & print the value of analog input
+  //Serial.println(analogRead(A0));//first serial port
+  //Serial.print(analogRead(A1));//second serial port
+  //Serial.print(",");//split the values
+  //Serial.println(r);
+  //Serial.println(score);
+  
+  do {//do while score is less than 11
+  //read joystick's input
+  vert = analogRead(A0);
+  hor = analogRead(A1);
+  //do after every second
+  if ((millis() % 1000) == 0) {
+    int m = millis();
+      //3 random states
+      r = random(0,3);
+    if (r == 0){
+  digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, LOW);
+  digitalWrite(ledPin3, LOW);
+  if (hor==0){
+      digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, HIGH);
+  }
+  else{
+    score = score + 1;}//add 1 to score
+  }
+
+    if (r == 1){
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, LOW);
+  digitalWrite(ledPin1, LOW);
+if (vert==0){
+      digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, HIGH);
+}
+else{
+    score = score + 1;}//add 1 to score
+    }
+
+  if (r == 2){
+  digitalWrite(ledPin3, HIGH);
+  digitalWrite(ledPin1, LOW);
+  digitalWrite(ledPin2, LOW);
+if (hor==1023){
+      digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, HIGH);
+}
+ else{
+    score = score + 1;}//add 1
+  }
+  }
+  } while (score<11);
+  //turn LEDs off
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+  }
+ 
