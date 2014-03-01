@@ -1,0 +1,29 @@
+//Alexandr Gerassimov
+//turn servo on during night
+ #include <Servo.h> 
+Servo myservo;
+int pos = 0;    
+int sensor1val = 0;
+     
+int x = 0;
+void setup() {
+  Serial.begin(9600);
+  myservo.attach(9);
+  
+}
+
+void loop() {
+  // read & print the value of analog input
+  Serial.println(analogRead(A0));//first serial port
+
+  sensor1val = analogRead(A0);
+
+   if (sensor1val < 20) {
+for(pos = 0; pos < 180; pos += 1) 
+  {                                  
+    myservo.write(pos);              
+    delay(15);             
+  }
+ }
+}
+  
