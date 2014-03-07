@@ -1,0 +1,26 @@
+//Alexandr Gerassimov
+
+const int buttonPin1 = 2;
+int buttonState1 = 0;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(buttonPin1, INPUT);
+
+}
+
+void loop() {
+  buttonState1 = digitalRead(buttonPin1);
+  
+  if ((millis() % 86400000) == 0) {//millseconds in a day 
+  while (buttonState1 == HIGH) {
+  play(); } 
+  }
+}
+
+void play(){
+  int thisPitch = map(500, 400, 1000, 120, 1500);
+  tone(9, thisPitch, 10);
+  delay(100);    
+}
+
