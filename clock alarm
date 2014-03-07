@@ -12,7 +12,7 @@ void setup() {
 void loop() {
   buttonState1 = digitalRead(buttonPin1);
   
-  if ((millis() % 86400000) == 0) {//millseconds in a day 
+  if ((millis() % 43200000) == 0) {//millseconds in 12 hours 
   while (buttonState1 == HIGH) {
   play(); } 
   }
