@@ -1,0 +1,43 @@
+#pragma strict
+var player : GameObject;
+var myTransform : Transform;
+private var startPosition : Vector3;
+var follow : GameObject;
+var distance : Vector3 ;
+function Start () {
+
+	startPosition = transform.position; //store the start position
+}
+
+
+function Update () {
+
+		if (Input.GetButton("Fire2")){ 	
+		    	  var distance = Vector3.Distance(follow.transform.position, transform.position);
+		    	 }
+		    	 else{
+		follow.transform.position = player.transform.position;
+
+    	 distance = Vector3.Distance(follow.transform.position, transform.position);
+
+		//distance = Vector3.Distance(player.transform.position, transform.position);
+
+		//q = distance;
+    	 if (distance <= 7.0f){
+    	 		renderer.enabled=true;
+    	 		collider.enabled = true;
+     }
+     if (distance > 7.0f){
+     renderer.enabled=false;
+    	 	collider.enabled = false;
+    	 	} 
+    	 	if (Input.GetButton("Fire1")){ 	
+				renderer.enabled=false;
+    	 		collider.enabled = false;	
+    	 	}
+    	 }	 	
+}
+
+
+
+    	
