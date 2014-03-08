@@ -1,0 +1,42 @@
+//Alexandr Gerassimov
+#pragma strict
+var x : Vector3 ;//translation
+var r : Vector3 ;//rotation
+
+var player : GameObject;
+var cube : GameObject;
+var ac : GameObject;
+var myTransform : Transform;
+private var startPosition : Vector3;
+		
+function Start () {
+
+	startPosition = transform.position; //get start position
+	
+}
+function Update () {
+if (Input.GetButton("Fire2")){ 
+		stop();
+		}
+		else{
+    	 var distance2 = Vector3.Distance(ac.transform.position, transform.position);
+    	 if (distance2 <= 40.0f){ //|| distance <= 10.0f){//include player
+    	 if (transform.position.y < 30){
+			x = new Vector3 (0,0.2,0);
+	r = new Vector3 (1,0,1);
+    	 transform.Rotate(r*(Mathf.PI*2));//transform.Rotate(r);transform.Rotate(r*(Mathf.PI*2));//remove brakets(one wave)transform.Rotate(r*Mathf.PI);
+    	 transform.Translate(x/Mathf.PI*2);}//transform.Translate(x);}transform.Translate(x/Mathf.PI*2);}transform.Translate(x*Mathf.PI);}
+    	 }
+
+		if (Input.GetButton("Fire1")){ 
+			transform.position = Vector3.Lerp(transform.position, startPosition, Time.time);//Time.deltaTime
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(r), Time.time);}
+		}
+	}
+function stop(){
+	x = new Vector3 (0,0.0,0);
+	r = new Vector3 (0,0,0);
+	transform.Rotate(r);
+    transform.Translate(x);
+
+}
