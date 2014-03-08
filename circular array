@@ -1,0 +1,28 @@
+//AG
+#pragma strict
+var z : Vector3 ;
+public var gridPart : Transform;
+    
+function Start () {
+ 	var i : int = 0;
+ 	var j : int = 0;
+var r : float = 3;// The radius
+
+ 	var w : float = 1;
+ 	var h : float = 1;
+ 	var gridSize : int = 30;
+   	var arclength : float = 0;
+   	
+   	z = new Vector3 (0,0,90); 
+  for (i = 0; i < gridSize; i++) {
+  		for( j = 0; j < gridSize ; j++) {
+  		gridPart.gameObject.SetActive(true);
+    arclength += w/2;
+    var theta: float = arclength/r;     
+    
+    Instantiate(gridPart, Vector3 (31+r*Mathf.Cos(theta),15+r*Mathf.Sin(theta), 20 + j), Quaternion.identity);
+    gridPart.transform.Rotate(z);
+    arclength += w;
+    }
+  }
+}
