@@ -1,0 +1,84 @@
+//ARDUINO:
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println(analogRead(A0));
+  delay(2);
+}
+
+
+//Processing
+//snow - code modified from © 2012 solemone 
+//" http://www.facebook.com/l/mAQExNoo2AQEqSFpfhkyIL9gdjLnjebmOPCP3ndhfRrqfyg/solemone.de/code/snow-effect-build-with-processing/"
+   import processing.serial.*;
+ Serial myPort;        // The serial port
+ float inByte;
+  
+  float tint;
+  PImage img;
+  int num = 500;
+float [] Xp = new float [num];
+float [] Yp = new float [num];
+int [] size = new int [num];
+float myValue = 0;
+int [] direction = new int [num];
+int minsize = 1;
+int maxsize = 10;
+float wind = random(-0.5,0.5);
+
+
+ void setup () {
+  size(1280,720,OPENGL);
+ for (int i = 0; i < num; i++ )
+{
+size[i] = round(random(minsize,maxsize));
+Xp[i] = random (0,width);
+Yp[i] = random (0,width);
+direction [i] = round(random(0,1));
+}
+ println(Serial.list());
+ 
+ myPort = new Serial(this, Serial.list()[1], 9600);
+ myPort.bufferUntil('\n');
+ }
+ void draw () {
+    background(inByte*10);
+
+ tint(tint);   
+  fill(225, 10);
+ 
+  fill(100-inByte);
+for(int i = 0; i < Xp.length; i++){
+
+ellipse(Xp[i], Yp[i], size[i],size[i]);
+
+if(direction[i] == 0) {
+Xp[i] += map(size[i], minsize, maxsize, 0.1, 0.5);
+} else {
+Xp[i] -= map(size[i], minsize, maxsize, 0.1, 0.5);
+}
+
+Yp[i] += size[i] + direction[i];
+
+if(Xp[i] > width + size[i] || Xp [i] < -size[i] || Yp[i] > width +size[i]){
+Xp[i] = random(0, width);
+Yp[i] = - size[i];
+}
+}
+
+}
+ 
+ void serialEvent (Serial myPort) {
+ // get the ASCII string:
+ String inString = myPort.readStringUntil('\n');
+ 
+ if (inString != null) {
+ // trim off any whitespace:
+ inString = trim(inString);
+ // convert to an int and map to the screen height:
+ inByte = float(inString);
+ }
+ }
