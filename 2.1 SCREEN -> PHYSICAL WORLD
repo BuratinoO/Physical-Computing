@@ -1,0 +1,75 @@
+//Alexandr Gerassimov
+
+//Processing:
+
+import processing.serial.*; 
+  
+Serial port; 
+    
+void setup(){
+size(1080, 720, P2D);
+  println(Serial.list()); 
+  
+  port = new Serial(this, Serial.list()[1], 9600); 
+}
+
+void draw(){
+  background(200);
+ fill(50);
+ rect(0, 0, width/2, height);
+ fill(0);
+ ellipse(mouseX, mouseY,45,45);
+ 
+ if(mouseX > width/2){
+     port.write('A'); 
+     println('A');
+ }
+else{
+   port.write('B');  
+     println('B');
+  }
+}
+
+
+
+//ARDUINO:
+
+//Alexandr Gerassimov
+ #include <Servo.h> 
+Servo myservo;
+int pos = 90;    
+int sensor1val = 0;
+     
+int incomingByte;  
+
+int x = 0;
+void setup() {
+  Serial.begin(9600);
+  myservo.attach(9);
+  
+}
+
+void loop() {
+    if (Serial.available() > 0) {
+    incomingByte = Serial.read();
+
+   Serial.println(incomingByte);    
+    if (incomingByte == 'A') {
+      pos += 1;
+  {                                  
+    myservo.write(pos);              
+    delay(15);             
+  }
+    }
+    if (incomingByte == 'B') {
+       pos -= 1;
+  {                                  
+    myservo.write(pos);              
+    delay(15);             
+  }
+ }
+ else{
+           }         
+}
+}
+  
