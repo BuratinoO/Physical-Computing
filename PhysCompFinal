@@ -1,0 +1,82 @@
+
+//Alexandr Gerassimov
+//#include "pitches.h"
+  
+int tonePin = 9;
+ 
+int ledPin1 = 13;
+int ledPin2 = 12;
+int ledPin3 = 11;
+int ledPin4 = 10;
+
+int sensorVal = 0;
+
+int sensorMin = 1023;
+int sensorMax = 0;
+
+//int notes = NOTE_D5;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(ledPin3, OUTPUT);
+  pinMode(ledPin4, OUTPUT);
+
+}
+
+void loop(){
+  
+  //Serial.println(analogRead(A2)+ ",");
+  //Serial.print(analogRead(A1)+ ",");
+  Serial.println(sensorVal);
+
+  
+  sensorVal = (analogRead(A1) + (analogRead(A2) + analogRead(A0)) / 3);//light value average
+
+   if (sensorVal > 150) {
+     state1();
+   }
+   if (sensorVal > 90 && sensorVal < 150) {
+     state2();
+   }
+   if (sensorVal > 50 && sensorVal < 90) {
+     state3();
+   }
+   if (sensorVal < 50) {
+     state4();
+   }
+}
+
+void state1(){
+  digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, LOW);
+  digitalWrite(ledPin3, LOW);
+  digitalWrite(ledPin4, LOW);
+}
+void state2(){
+  digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, LOW);
+  digitalWrite(ledPin4, LOW);
+}
+void state3(){
+  digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, HIGH);
+  digitalWrite(ledPin4, LOW);
+}
+void state4(){
+  digitalWrite(ledPin1, HIGH);
+  digitalWrite(ledPin2, HIGH);
+  digitalWrite(ledPin3, HIGH);
+  digitalWrite(ledPin4, HIGH);
+  
+  int thisPitch = map(500, 400, 1000, 120, 1500);
+  tone(9, thisPitch, 100);
+  //tone(tonePin, 20, 20);
+  //digitalWrite(tonePin,HIGH);
+  delay(1);  
+}
+
+
